@@ -27,6 +27,12 @@ module Spree
       render json: current_order(create_order_if_necessary: true) # force creation of order if doesn't exists
     end
 
+    def default_url_options
+      return super if I18n.locale.to_s == current_store.default_locale
+
+      super.merge!({ locale: I18n.locale })
+    end
+
     protected
 
     def config_locale
